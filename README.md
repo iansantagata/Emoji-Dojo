@@ -1,3 +1,6 @@
+<!-- Badges -->
+[![License](https://img.shields.io/github/license/iansantagata/jamms?label=License&color=yellow)](LICENSE)
+
 # Emoji Dojo
 
 This repository is meant to be a storage space for scripts relevant to manipulating small images (aka emojis) in some way.
