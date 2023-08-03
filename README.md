@@ -9,3 +9,7 @@ Here are some examples:
 - Want to take an image like this heart ❤️ and make it shimmer through all colors of the rainbow?  Try `partify.sh`!
 
 If there is something missing here that you think could be used, feel free to add an issue or a pull request!
+
+## Dependencies
+
+The scripts in this repository require [Image Magick](https://imagemagick.org/) to function properly and are meant to be run using your shell (bash, zsh, etc).
