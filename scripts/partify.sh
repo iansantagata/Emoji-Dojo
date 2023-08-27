@@ -13,8 +13,7 @@ SCRIPT_NAME=$0
 display_help()
 {
     echo "Usage: $SCRIPT_NAME [OPTIONS ...] FILE"
-    echo "Create an animated GIF of an input image in FILE that appears to change colors in a gradient"
-    echo "to every color of the rainbow."
+    echo "Create an animated GIF of an input image in FILE that appears to change colors in a gradient to every color of the rainbow."
     echo
     echo "OPTIONS:"
     echo "  -h, --help   (OPTIONAL) Display this help and exit"
