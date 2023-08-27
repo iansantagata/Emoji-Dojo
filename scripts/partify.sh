@@ -79,7 +79,7 @@ verify_image_magick_installed()
     fi
 }
 
-partify_file()
+create_partified_file()
 {
     # TODO - Implement
     echo
@@ -105,7 +105,7 @@ done
 verify_image_magick_installed
 validate_inputs
 set_default_inputs
-partify_file
+create_partified_file
 
 echo "Execution complete!"
 exit 0

@@ -78,7 +78,7 @@ verify_image_magick_installed()
     fi
 }
 
-intensify_file()
+create_intensified_file()
 {
     # TODO - Implement
     echo
@@ -104,7 +104,7 @@ done
 verify_image_magick_installed
 validate_inputs
 set_default_inputs
-intensify_file
+create_intensified_file
 
 echo "Execution complete!"
 exit 0
