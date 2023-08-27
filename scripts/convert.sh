@@ -27,8 +27,6 @@ display_help()
     echo
     echo "All FILEs are preserved by default; FILEs are not modified in-place unless requested."
     echo
-    echo "Note: $SCRIPT_NAME requires Image Magick to be installed."
-    echo
     echo "OPTIONS:"
     echo "  -f, --from FORMAT, --from=FORMAT   (OPTIONAL) Image FORMAT to convert images from;"
     echo "                                                REQUIRED when FILE is provided as a directory;"
@@ -79,10 +77,27 @@ parse_file_name()
         echo_error "Error: No FILE provided"
         display_help
         exit 1
-    elif [ ! -e "$1" ]; then
+    fi
+
+    if [ ! -e "$1" ]; then
         echo_error "Error: FILE '$1' does not exist"
         exit 1
-    elif [ -d "$1" ]; then
+    fi
+
+    if [ -d "$1" ] && [ -n "$DIRECTORY" ]; then
+        echo_error "Error: More than one FILE was provided: '$DIRECTORY' and '$1'"
+        display_help
+        exit 1
+    fi
+
+    if [ -f "$1" ] && [ -n "$FILE" ]; then
+        echo_error "Error: More than one FILE was provided: '$FILE' and '$1'"
+        display_help
+        exit 1
+    fi
+
+    # Determine what type of file type this is (directory or regular file are allowed)
+    if [ -d "$1" ]; then
         DIRECTORY=$1
     elif [ -f "$1" ]; then
         FILE="$(basename "$1")"
