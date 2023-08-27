@@ -16,4 +16,4 @@ If there is something missing here that you think could be used, feel free to ad
 
 ## Dependencies
 
-The scripts in this repository require [Image Magick](https://imagemagick.org/) to function properly and are meant to be run using your shell (bash, zsh, etc).
+The scripts in this repository require [Image Magick](https://imagemagick.org/) to function properly and are meant to be run using your shell (`sh`, `bash`, `zsh`, `ksh`, etc).
