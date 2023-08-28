@@ -130,6 +130,8 @@ validate_inputs()
         display_help
         exit 1
     fi
+
+    check_files
 }
 
 set_default_inputs()
@@ -183,8 +185,6 @@ check_files()
 
 convert_files()
 {
-    check_files
-
     echo "Ready to convert files to '$CONVERT_TO' format:"
     echo "$FILE_LIST"
     echo
@@ -240,6 +240,7 @@ while [ "$#" -gt 0 ]; do
         --from=*) set_from_type "${1#*=}"; shift;;
         --to=*) set_to_type "${1#*=}"; shift;;
 
+        # Default and error handling options
         -*|--*) echo_error "Error: Unknown option: '$1'"; display_help; exit 1;;
         *) parse_file_name "$1"; shift;;
     esac
@@ -247,8 +248,8 @@ done
 
 # Execute desired logic based on inputs
 verify_image_magick_installed
-validate_inputs
 set_default_inputs
+validate_inputs
 convert_files
 delete_preconversion_files
 

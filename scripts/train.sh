@@ -103,8 +103,8 @@ done
 
 # Execute desired logic based on inputs
 verify_image_magick_installed
-validate_inputs
 set_default_inputs
+validate_inputs
 create_train_file
 
 echo "Execution complete!"
