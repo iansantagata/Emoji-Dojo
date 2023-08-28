@@ -22,7 +22,9 @@ Simply clone this repository locally and execute any of the scripts in the [scri
 
 All scripts in this repository are meant to be run using your shell locally (`sh`, `bash`, `zsh`, `ksh`, etc).
 
-Each script has usage instructions at the top of each file.  More technical details can be found for each `SCRIPT_NAME` by running `scripts/SCRIPT_NAME.sh --help` in your shell when at the root of the cloned repository.
+Each script has usage instructions at the top of each file.
+
+More technical details can be found for each `SCRIPT_NAME` by running `scripts/SCRIPT_NAME.sh --help` in your shell when at the root of the cloned repository.
 
 ## Dependencies
 
