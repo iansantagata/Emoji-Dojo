@@ -16,6 +16,14 @@ Here are some examples:
 
 If there is something missing here that you think could be used, feel free to add an issue or a pull request!
 
+## Usage
+
+Simply clone this repository locally and execute any of the scripts in the [scripts](scripts/) folder.
+
+All scripts in this repository are meant to be run using your shell locally (`sh`, `bash`, `zsh`, `ksh`, etc).
+
+Each script has usage instructions at the top of each file.  More technical details can be found for each `SCRIPT_NAME` by running `scripts/SCRIPT_NAME.sh --help` in your shell when at the root of the cloned repository.
+
 ## Dependencies
 
-The scripts in this repository require [Image Magick](https://imagemagick.org/) to function properly and are meant to be run using your shell (`sh`, `bash`, `zsh`, `ksh`, etc).
+The scripts in this repository require [Image Magick](https://imagemagick.org/) to function properly.
