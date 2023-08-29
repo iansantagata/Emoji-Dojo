@@ -17,10 +17,15 @@ display_help()
     echo "Default rotational direction is clockwise the number of degrees provided."
     echo
     echo "OPTIONS:"
-    echo "  -d, --degrees VALUE, --degrees=VALUE   (REQUIRED) Rotate the image VALUE number of degrees in one direction"
-    echo "  -c, --counter-clockwise                (OPTIONAL) Rotate the image counter-clockwise by DEGREES instead of clockwise"
-    echo "  -h, --help                             (OPTIONAL) Display this help and exit"
-    echo "  -i, --in-place                         (OPTIONAL) Replace the image FILE with its rotated version"
+    echo "  -b, --background HEX, --background=HEX   (OPTIONAL) The color in RGB HEX to fill in the background with if the rotation of the image"
+    echo "                                                      leaves non-image space on the canvas;  HEX should be numeric and start with '#';"
+    echo "                                                      The default color used if not provided is '#00000000' (transparent);"
+    echo "                                                      The default is black on image formats that do not support transparent color;"
+    echo "                                                      Common choices include: '#000000' (black) or '#FFFFFF' (white)"
+    echo "  -d, --degrees VALUE, --degrees=VALUE     (REQUIRED) Rotate the image VALUE number of degrees in one direction"
+    echo "  -c, --counter-clockwise                  (OPTIONAL) Rotate the image counter-clockwise by DEGREES instead of clockwise"
+    echo "  -h, --help                               (OPTIONAL) Display this help and exit"
+    echo "  -i, --in-place                           (OPTIONAL) Replace the image FILE with its rotated version"
 }
 
 echo_error()
@@ -40,6 +45,20 @@ set_degrees()
         exit 1
     fi
     DEGREES="$1"
+}
+
+set_background_color()
+{
+    if [ -z "$1" ]; then
+        echo_error "Error: No value provided for option: '-b'"
+        display_help
+        exit 1
+    elif [ -n "$BACKGROUND_COLOR" ]; then
+        echo_error "Error: Duplicate options provided for: '-b'"
+        display_help
+        exit 1
+    fi
+    BACKGROUND_COLOR="$1"
 }
 
 parse_file_name()
@@ -76,6 +95,22 @@ parse_file_name()
     fi
 }
 
+set_default_inputs()
+{
+    if [ -z "$BACKGROUND_COLOR" ]; then
+        # Default is transparent
+        BACKGROUND_COLOR="#00000000"
+    fi
+
+    if [ -z "$IS_CLOCKWISE" ]; then
+        IS_CLOCKWISE="true"
+    fi
+
+    if [ -z "$IN_PLACE_ROTATION" ]; then
+        IN_PLACE_ROTATION="false"
+    fi
+}
+
 validate_inputs()
 {
     if [ -z "$DEGREES" ]; then
@@ -90,18 +125,12 @@ validate_inputs()
         exit 1
     fi
 
+    case "$BACKGROUND_COLOR" in
+        \#[0-9]*) : ;;
+        *) echo_error "Error: Invalid HEX provided for option: '-b'"; display_help; exit 1;;
+    esac
+
     check_files
-}
-
-set_default_inputs()
-{
-    if [ -z "$IS_CLOCKWISE" ]; then
-        IS_CLOCKWISE="true"
-    fi
-
-    if [ -z "$IN_PLACE_ROTATION" ]; then
-        IN_PLACE_ROTATION="false"
-    fi
 }
 
 verify_image_magick_installed()
@@ -143,11 +172,11 @@ create_rotated_file()
     echo "Starting image file rotation..."
 
     if [ "$IN_PLACE_ROTATION" = "true" ]; then
-        magick mogrify -rotate $DEGREES $DIRECTORY/$FILE
+        magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$FILE
     else
         NEW_FILE="${FILE_NAME}_rotated.$EXTENSION"
         cp $DIRECTORY/$FILE $DIRECTORY/$NEW_FILE
-        magick mogrify -rotate $DEGREES $DIRECTORY/$NEW_FILE
+        magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$NEW_FILE
         echo "Created new file: $NEW_FILE"
     fi
 
@@ -164,12 +193,14 @@ fi
 while [ "$#" -gt 0 ]; do
     case $1 in
         # Short and long options with any possible values separated by spaces (alphabetical order)
+        -b|--background) set_background_color "$2"; shift 2;;
         -c|--counter-clockwise) IS_CLOCKWISE="false"; shift;;
         -d|--degrees) set_degrees "$2"; shift 2;;
         -h|--help) display_help; exit 0;;
         -i|--in-place) IN_PLACE_ROTATION="true"; shift;;
 
         # Long options with any possible values separated by equal signs (alphabetical order)
+        --background=*) set_background_color "${1#*=}"; shift;;
         --degrees=*) set_degrees "${1#*=}"; shift;;
 
         # Default and error handling options
