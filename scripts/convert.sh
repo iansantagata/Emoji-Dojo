@@ -111,6 +111,13 @@ parse_file_name()
     fi
 }
 
+set_default_inputs()
+{
+    if [ -z "$DIRECTORY" ] && [ -z "$FILE" ]; then
+        DIRECTORY="."
+    fi
+}
+
 validate_inputs()
 {
     if [ -z "$CONVERT_FROM" ] && [ -z "$FILE" ]; then
@@ -132,13 +139,6 @@ validate_inputs()
     fi
 
     check_files
-}
-
-set_default_inputs()
-{
-    if [ -z "$DIRECTORY" ] && [ -z "$FILE" ]; then
-        DIRECTORY="."
-    fi
 }
 
 verify_image_magick_installed()

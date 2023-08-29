@@ -55,13 +55,13 @@ parse_file_name()
     fi
 }
 
-validate_inputs()
+set_default_inputs()
 {
     # TODO - Implement
     echo
 }
 
-set_default_inputs()
+validate_inputs()
 {
     # TODO - Implement
     echo
