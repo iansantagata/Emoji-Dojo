@@ -5,6 +5,10 @@
 # Example Usages:
 #
 # ./rotate.sh --help
+# ./rotate.sh -d 90 image.jpg
+# ./rotate.sh -c -d 90 image.jpg
+# ./rotate.sh -d 90 -i image.jpg
+# ./rotate.sh -d 45 -b '#FFFFFF' image.jpg
 
 set -e
 SCRIPT_NAME=$0
@@ -83,7 +87,7 @@ parse_file_name()
     # Determine what type of file type this is (regular file is allowed)
     if [ -f "$1" ]; then
         FILE="$(basename "$1")"
-        FILE_NAME="$(basename "${1%.*}")"
+        FILE_NAME_ROOT="$(basename "${1%.*}")"
         EXTENSION="${FILE##*.}"
         DIRECTORY="$(dirname "$1")"
     else
@@ -126,7 +130,7 @@ validate_inputs()
     fi
 
     case "$BACKGROUND_COLOR" in
-        \#[0-9]*) : ;;
+        \#[0-9A-Fa-f]*) : ;;
         *) echo_error "Error: Invalid HEX provided for option: '-b'"; display_help; exit 1;;
     esac
 
@@ -174,7 +178,7 @@ create_rotated_file()
     if [ "$IN_PLACE_ROTATION" = "true" ]; then
         magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$FILE
     else
-        NEW_FILE="${FILE_NAME}_rotated.$EXTENSION"
+        NEW_FILE="${FILE_NAME_ROOT}_rotated.$EXTENSION"
         cp $DIRECTORY/$FILE $DIRECTORY/$NEW_FILE
         magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$NEW_FILE
         echo "Created new file: $NEW_FILE"
