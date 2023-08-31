@@ -5,6 +5,9 @@
 # Example Usages:
 #
 # ./spin.sh --help
+# ./spin.sh Image.png
+# /.spin.sh -c Image.png
+# /.spin.sh -b '#FFFFFF' Image.png
 
 set -e
 SCRIPT_NAME=$0
