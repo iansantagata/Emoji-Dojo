@@ -176,13 +176,14 @@ create_rotated_file()
     echo "Starting image file rotation..."
 
     if [ "$IN_PLACE_ROTATION" = "true" ]; then
-        magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$FILE
+        TARGET_FILE=$FILE
     else
-        NEW_FILE="${FILE_NAME_ROOT}_rotated.$EXTENSION"
-        cp $DIRECTORY/$FILE $DIRECTORY/$NEW_FILE
-        magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$NEW_FILE
-        echo "Created new file: $NEW_FILE"
+        TARGET_FILE="${FILE_NAME_ROOT}_rotated.$EXTENSION"
+        cp $DIRECTORY/$FILE $DIRECTORY/$TARGET_FILE
+        echo "Created new file: $TARGET_FILE"
     fi
+
+    magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$TARGET_FILE
 
     echo "File rotation complete!"
 }
