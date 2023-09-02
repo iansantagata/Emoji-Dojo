@@ -22,9 +22,9 @@ display_help()
     echo
     echo "OPTIONS:"
     echo "  -b, --background HEX, --background=HEX   (OPTIONAL) The color in RGB HEX to fill in the background with if the rotation of the image"
-    echo "                                                      leaves non-image space on the canvas;  HEX should be numeric and start with '#';"
+    echo "                                                      leaves non-image space on the canvas;  HEX is hexadecimal and starts with '#';"
     echo "                                                      The default color used if not provided is '#00000000' (transparent);"
-    echo "                                                      The default is black on image formats that do not support transparent color;"
+    echo "                                                      The default is black on formats that do not support transparent color (JPG);"
     echo "                                                      Common choices include: '#000000' (black) or '#FFFFFF' (white)"
     echo "  -d, --degrees VALUE, --degrees=VALUE     (REQUIRED) Rotate the image VALUE number of degrees in one direction"
     echo "  -c, --counter-clockwise                  (OPTIONAL) Rotate the image counter-clockwise by DEGREES instead of clockwise"

@@ -172,7 +172,7 @@ validate_inputs()
 
     case "$MIN_NUMBER_OF_FRAMES" in
         [0-9]*) : ;;
-        *) echo_error "Error: Invalid VALUE provided for option: '-n'"; display_help; exit 1;;
+        *) echo_error "Error: Invalid VALUE provided for option: '-f'"; display_help; exit 1;;
     esac
 
     if [ "$DELAY_IN_MSEC" -lt 20 ]; then

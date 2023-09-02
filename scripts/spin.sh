@@ -24,7 +24,7 @@ display_help()
     echo "                                                      A lower VALUE will be smoother but a slower animation with increased file size;"
     echo "                                                      If not used, the default angle is 5 degrees"
     echo "  -b, --background HEX, --background=HEX   (OPTIONAL) The color in RGB HEX to fill in the background with if the spin of the image"
-    echo "                                                      leaves non-image space on the canvas;  HEX should be numeric and start with '#';"
+    echo "                                                      leaves non-image space on the canvas;  HEX is hexadecimal and starts with '#';"
     echo "                                                      The default color used if not provided is '#00000000' (transparent);"
     echo "                                                      Common choices include: '#000000' (black) or '#FFFFFF' (white)"
     echo "  -c, --counter-clockwise                  (OPTIONAL) Spin the image counter-clockwise instead of clockwise"
@@ -157,7 +157,7 @@ validate_inputs()
     esac
 
     if [ "$DELAY_IN_MSEC" -lt 20 ]; then
-        echo_error "Error: Value provided for flag is below minimum value: '-d'"
+        echo_error "Error: VALUE provided for flag is below minimum value: '-d'"
         display_help
         exit 1
     fi
