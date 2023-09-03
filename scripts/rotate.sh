@@ -179,11 +179,10 @@ create_rotated_file()
         TARGET_FILE=$FILE
     else
         TARGET_FILE="${FILE_NAME_ROOT}_rotated.$EXTENSION"
-        cp $DIRECTORY/$FILE $DIRECTORY/$TARGET_FILE
-        echo "Created new file: $TARGET_FILE"
+        echo "Creating new file: $TARGET_FILE"
     fi
 
-    magick mogrify -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$TARGET_FILE
+    magick $DIRECTORY/$FILE -background "$BACKGROUND_COLOR" -rotate $DEGREES $DIRECTORY/$TARGET_FILE
 
     echo "File rotation complete!"
 }

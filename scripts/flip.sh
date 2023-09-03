@@ -132,16 +132,15 @@ create_flipped_file()
         TARGET_FILE=$FILE
     else
         TARGET_FILE="${FILE_NAME_ROOT}_flipped.$EXTENSION"
-        cp $DIRECTORY/$FILE $DIRECTORY/$TARGET_FILE
-        echo "Created new file: $TARGET_FILE"
+        echo "Creating new file: $TARGET_FILE"
     fi
 
     if [ "$IS_FLIP_HORIZONTAL" = "true" ]; then
-        magick mogrify -flip $DIRECTORY/$TARGET_FILE
+        magick $DIRECTORY/$FILE -flip $DIRECTORY/$TARGET_FILE
     fi
 
     if [ "$IS_FLIP_VERTICAL" = "true" ]; then
-        magick mogrify -flop $DIRECTORY/$TARGET_FILE
+        magick $DIRECTORY/$FILE -flop $DIRECTORY/$TARGET_FILE
     fi
 
     echo "File flipping complete!"
