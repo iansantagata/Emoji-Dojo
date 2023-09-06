@@ -5,7 +5,6 @@
 # Example Usages:
 #
 # ./explode.sh --help
-# ./explode.sh --help
 # ./explode.sh Image.png
 # ./explode.sh -d 20 Image.png
 # ./explode.sh -d 30 -f 50 -i 1 Image.png

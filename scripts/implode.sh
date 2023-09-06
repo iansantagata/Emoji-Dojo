@@ -5,6 +5,10 @@
 # Example Usages:
 #
 # ./implode.sh --help
+# ./implode.sh Image.png
+# ./implode.sh -d 20 Image.png
+# ./implode.sh -d 30 -f 50 Image.png
+# ./implode.sh -b '#FFFFFF' Image.png
 
 set -e
 SCRIPT_NAME=$0
