@@ -239,10 +239,11 @@ create_spinning_file()
     done
 
     NEW_FILE="${FILE_NAME}_spinning.gif"
+    echo "Creating new file: $NEW_FILE"
+
     COMMAND="$COMMAND -loop 0 $NEW_FILE"
     eval "$COMMAND"
 
-    echo "Created new file: $NEW_FILE"
     echo "Animated image file creation complete!"
 }
 
