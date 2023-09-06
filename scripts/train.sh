@@ -235,7 +235,7 @@ create_train_file()
     fi
 
     # Now, start building the command to run to create the animation
-    COMMAND="magick -delay '${DELAY_IN_MSEC}x1000' -dispose Background $FILE"
+    COMMAND="magick $FILE -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
 
     X_DISPLACEMENT=0
     Y_DISPLACEMENT=0

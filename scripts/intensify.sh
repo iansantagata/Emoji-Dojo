@@ -243,7 +243,7 @@ create_intensified_file()
     HEIGHT_SHAKE_IN_PIXELS=$(($MAX_INTENSITY * $FILE_TOTAL_HEIGHT / 100))
 
     # Now, start building the command to run to create the animation
-    COMMAND="magick -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background $FILE"
+    COMMAND="magick $FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
     FRAMES=1
 
     while [ "$FRAMES" -lt "$NUMBER_OF_FRAMES" ]; do

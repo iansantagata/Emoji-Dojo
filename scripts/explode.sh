@@ -20,8 +20,8 @@ display_help()
     echo "Create an animated GIF of an input image in FILE that appears to expand and explode within the image's frame."
     echo
     echo "OPTIONS:"
-    echo "  -b, --background HEX, --background=HEX     (OPTIONAL) The color in RGB HEX to fill in the background with if shifting the image"
-    echo "                                                        leaves non-image space on the canvas; HEX is hexadecimal and starts with '#';"
+    echo "  -b, --background HEX, --background=HEX     (OPTIONAL) The color in RGB HEX to fill in the background with if desired;"
+    echo "                                                        HEX is hexadecimal and starts with '#';"
     echo "                                                        The default color used if not provided is '#00000000' (transparent);"
     echo "                                                        Common choices include: '#000000' (black) or '#FFFFFF' (white)"
     echo "  -c, --color HEX, --color=HEX               (OPTIONAL) The color in RGB HEX to use for the explosion part of the animated image;"
@@ -274,7 +274,7 @@ create_exploded_file()
     CENTER_Y=$((FILE_TOTAL_HEIGHT / 2))
 
     # Now, start building the command to run to create the animation
-    COMMAND="magick -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background $FILE"
+    COMMAND="magick $FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
     FRAMES=1
 
     # Explosions are negative intensity, implosions are positive intensity
@@ -296,7 +296,7 @@ create_exploded_file()
     NEW_FILE="${FILE_NAME}_exploding.gif"
     echo "Creating new file: $NEW_FILE"
 
-    COMMAND="$COMMAND +repage -loop 0 $NEW_FILE"
+    COMMAND="$COMMAND -loop 0 $NEW_FILE"
     eval "$COMMAND"
 
     echo "Animated image file creation complete!"
