@@ -5,6 +5,10 @@
 # Example Usages:
 #
 # ./intensify.sh --help
+# ./intensify.sh Image.png
+# ./intensify.sh -d 20 Image.png
+# ./intensify.sh -b '#FFFFFF' Image.png
+# ./intensify.sh -d 30 -f 50 -i 1 Image.png
 
 set -e
 SCRIPT_NAME=$0
@@ -68,7 +72,7 @@ set_delay()
     DELAY_IN_MSEC="$1"
 }
 
-set_minimum_number_of_frames()
+set_number_of_frames()
 {
     if [ -z "$1" ]; then
         echo_error "Error: No value provided for option: '-f'"
@@ -242,7 +246,6 @@ create_intensified_file()
     COMMAND="magick -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background $FILE"
     FRAMES=1
 
-    # Generate a new frame every INCREMENT pixels
     while [ "$FRAMES" -lt "$NUMBER_OF_FRAMES" ]; do
 
         # First, figure out what direction we need to be displacing toward for this frame
@@ -284,10 +287,11 @@ create_intensified_file()
     done
 
     NEW_FILE="${FILE_NAME}_intensifies.gif"
+    echo "Creating new file: $NEW_FILE"
+
     COMMAND="$COMMAND -loop 0 $NEW_FILE"
     eval "$COMMAND"
 
-    echo "Created new file: $NEW_FILE"
     echo "Animated image file creation complete!"
 }
 
