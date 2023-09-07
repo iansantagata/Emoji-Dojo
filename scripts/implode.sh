@@ -19,18 +19,18 @@ display_help()
     echo "Create an animated GIF of an input image in FILE that appears to shrink and implode within the image's frame."
     echo
     echo "OPTIONS:"
-    echo "  -b, --background HEX, --background=HEX     (OPTIONAL) The color in RGB HEX to fill in the background with as part of imploding;"
-    echo "                                                        HEX is hexadecimal and starts with '#';"
-    echo "                                                        The default color used if not provided is '#00000000' (transparent);"
-    echo "                                                        Common choices include: '#000000' (black) or '#FFFFFF' (white)"
-    echo "  -d, --delay VALUE, --delay=VALUE           (OPTIONAL) Adds a delay of VALUE between frames in the animation;"
-    echo "                                                        VALUE is in milliseconds (msec) and must be a positive integer;"
-    echo "                                                        Because of GIF rendering limitations, the minimum is 20 milliseconds;"
-    echo "                                                        If not used, the default is 50 milliseconds"
-    echo "  -f, --frames VALUE, --frames=VALUE         (OPTIONAL) Use the VALUE number of frames when constructing the animation;"
-    echo "                                                        More frames will lengthen animation and increase file size;"
-    echo "                                                        If not used, the default is 20 frames"
-    echo "  -h, --help                                 (OPTIONAL) Display this help and exit"
+    echo "  -b, --background HEX, --background=HEX   (OPTIONAL) The color in RGB HEX to fill in the background with as part of imploding;"
+    echo "                                                      HEX is hexadecimal and starts with '#';"
+    echo "                                                      The default color used if not provided is '#00000000' (transparent);"
+    echo "                                                      Common choices include: '#000000' (black) or '#FFFFFF' (white)"
+    echo "  -d, --delay VALUE, --delay=VALUE         (OPTIONAL) Adds a delay of VALUE between frames in the animation;"
+    echo "                                                      VALUE is in milliseconds (msec) and must be a positive integer;"
+    echo "                                                      Because of GIF rendering limitations, the minimum is 20 milliseconds;"
+    echo "                                                      If not used, the default is 50 milliseconds"
+    echo "  -f, --frames VALUE, --frames=VALUE       (OPTIONAL) Use the VALUE number of frames when constructing the animation;"
+    echo "                                                      More frames will lengthen animation and increase file size;"
+    echo "                                                      If not used, the default is 20 frames"
+    echo "  -h, --help                               (OPTIONAL) Display this help and exit"
 }
 
 echo_error()
@@ -196,10 +196,7 @@ create_imploded_file()
     echo "Starting animated image file creation..."
 
     # Essentially, we build the "animated image" frame by frame, starting with the original image
-    FILE_TOTAL_WIDTH="$(magick identify -format '%[width]' $FILE)"
-    FILE_TOTAL_HEIGHT="$(magick identify -format '%[height]' $FILE)"
-
-    # Now, start building the command to run to create the animation
+    # Start building the command to run to create the animation
     COMMAND="magick $FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
     FRAMES=1
 
@@ -210,11 +207,11 @@ create_imploded_file()
 
         FRAME_INDEX=$(($FRAMES - 1))
 
-        # Create the frame with an explosion in the center that grows and move onto the next frame
+        # Create the frame with an implosion in the center that sucks up everything around it and move onto the next frame
         COMMAND="$COMMAND \\( -clone $FRAME_INDEX -gravity center -implode +$INTENSITY \\)"
         # TODO - Fix the issue with this, it appears to crash at higher positive integer values of INTENSITY for all images
 
-        # Scale intensity rapidly (exponentially) to simulate a rapid explosion
+        # Scale intensity rapidly (exponentially) to simulate a rapid implosion
         INTENSITY=$(($INTENSITY * 2))
         FRAMES=$(($FRAMES + 1))
     done
