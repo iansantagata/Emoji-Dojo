@@ -219,7 +219,7 @@ create_partified_file()
 
     # Essentially, we build the "animated image" frame by frame, starting with the original image
     # Start building the command to run to create the animation
-    COMMAND="magick $FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
+    COMMAND="magick $DIRECTORY/$FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
     FRAMES=1
 
     # Create an array of the party colors
@@ -252,7 +252,7 @@ create_partified_file()
     NEW_FILE="${FILE_NAME}_party.gif"
     echo "Creating new file: $NEW_FILE"
 
-    COMMAND="$COMMAND -loop 0 $NEW_FILE"
+    COMMAND="$COMMAND -loop 0 $DIRECTORY/$NEW_FILE"
     eval "$COMMAND"
 
     # For some reason, the first two frames of the image retain the similarity to the reference image rather than being partified
@@ -266,24 +266,24 @@ strip_first_iteration()
 {
     # Split the GIF into temporary files, one per each frame
     TEMP_FILE_FORMAT="temp_%03d.miff"
-    magick $NEW_FILE +adjoin $TEMP_FILE_FORMAT
+    magick $NEW_FILE +adjoin $DIRECTORY/$TEMP_FILE_FORMAT
     TEMP_FILE_INDEX=0
 
     # Remove the first set of frames by deleting the first set of temporary files
     while [ "$TEMP_FILE_INDEX" -lt "$COLOR_COUNT" ]; do
-        printf -v TEMP_FILE_NUMBER "%03d" $TEMP_FILE_INDEX
-        rm temp_${TEMP_FILE_NUMBER}.miff
+        printf -v PADDED_TEMP_FILE_INDEX "%03d" $TEMP_FILE_INDEX
+        rm $DIRECTORY/temp_${PADDED_TEMP_FILE_INDEX}.miff
 
         TEMP_FILE_INDEX=$(($TEMP_FILE_INDEX + 1))
     done
 
     # Without the first set of frames (files), reconstruct the GIF to ensure the loop is party colored appropriately
-    TEMP_FILES_FOUND=$(ls temp_*.miff -1 | tr '\n' ' ')
-    COMMAND="magick $TEMP_FILES_FOUND -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background -loop 0 $NEW_FILE"
+    TEMP_FILES_FOUND=$(ls $DIRECTORY/temp_*.miff -1 | tr '\n' ' ')
+    COMMAND="magick $TEMP_FILES_FOUND -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background -loop 0 $DIRECTORY/$NEW_FILE"
     eval "$COMMAND"
 
     # Finally, remove the remaining temporary files that were created
-    rm temp_*.miff
+    rm $DIRECTORY/temp_*.miff
 }
 
 # Show help if no inputs are provided

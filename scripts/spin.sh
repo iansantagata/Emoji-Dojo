@@ -220,7 +220,7 @@ create_spinning_file()
     echo "Starting animated image file creation..."
 
     # Essentially, we build the "animated image" frame by frame, starting with the original image
-    COMMAND="magick $FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
+    COMMAND="magick $DIRECTORY/$FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
 
     ANGLE_MIN=0
     ANGLE_MAX=360
@@ -241,7 +241,7 @@ create_spinning_file()
     NEW_FILE="${FILE_NAME}_spinning.gif"
     echo "Creating new file: $NEW_FILE"
 
-    COMMAND="$COMMAND -loop 0 $NEW_FILE"
+    COMMAND="$COMMAND -loop 0 $DIRECTORY/$NEW_FILE"
     eval "$COMMAND"
 
     echo "Animated image file creation complete!"

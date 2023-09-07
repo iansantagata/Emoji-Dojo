@@ -266,14 +266,14 @@ create_exploded_file()
     echo "Starting animated image file creation..."
 
     # Essentially, we build the "animated image" frame by frame, starting with the original image
-    FILE_TOTAL_WIDTH="$(magick identify -format '%[width]' $FILE)"
-    FILE_TOTAL_HEIGHT="$(magick identify -format '%[height]' $FILE)"
+    FILE_TOTAL_WIDTH="$(magick identify -format '%[width]' $DIRECTORY/$FILE)"
+    FILE_TOTAL_HEIGHT="$(magick identify -format '%[height]' $DIRECTORY/$FILE)"
 
     CENTER_X=$((FILE_TOTAL_WIDTH / 2))
     CENTER_Y=$((FILE_TOTAL_HEIGHT / 2))
 
     # Now, start building the command to run to create the animation
-    COMMAND="magick $FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
+    COMMAND="magick $DIRECTORY/$FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
     FRAMES=1
 
     # Explosions are negative intensity, implosions are positive intensity
@@ -295,7 +295,7 @@ create_exploded_file()
     NEW_FILE="${FILE_NAME}_exploding.gif"
     echo "Creating new file: $NEW_FILE"
 
-    COMMAND="$COMMAND -loop 0 $NEW_FILE"
+    COMMAND="$COMMAND -loop 0 $DIRECTORY/$NEW_FILE"
     eval "$COMMAND"
 
     echo "Animated image file creation complete!"

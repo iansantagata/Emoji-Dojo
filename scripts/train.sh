@@ -216,8 +216,8 @@ create_train_file()
     echo "Starting animated image file creation..."
 
     # Essentially, we build the "animated image" frame by frame, starting with the original image
-    FILE_TOTAL_WIDTH="$(magick identify -format '%[width]' $FILE)"
-    FILE_TOTAL_HEIGHT="$(magick identify -format '%[height]' $FILE)"
+    FILE_TOTAL_WIDTH="$(magick identify -format '%[width]' $DIRECTORY/$FILE)"
+    FILE_TOTAL_HEIGHT="$(magick identify -format '%[height]' $DIRECTORY/$FILE)"
 
     # First, we want to figure out the increment to use to get the minimum number of frames
     WIDTH_INCREMENT=$(($FILE_TOTAL_WIDTH / $MIN_NUMBER_OF_FRAMES))
@@ -235,7 +235,7 @@ create_train_file()
     fi
 
     # Now, start building the command to run to create the animation
-    COMMAND="magick $FILE -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
+    COMMAND="magick $DIRECTORY/$FILE -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
 
     X_DISPLACEMENT=0
     Y_DISPLACEMENT=0
@@ -276,7 +276,7 @@ create_train_file()
     NEW_FILE="${FILE_NAME}_train.gif"
     echo "Creating new file: $NEW_FILE"
 
-    COMMAND="$COMMAND -loop 0 $NEW_FILE"
+    COMMAND="$COMMAND -loop 0 $DIRECTORY/$NEW_FILE"
     eval "$COMMAND"
 
     echo "Animated image file creation complete!"

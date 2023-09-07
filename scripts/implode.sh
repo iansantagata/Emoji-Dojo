@@ -197,7 +197,7 @@ create_imploded_file()
 
     # Essentially, we build the "animated image" frame by frame, starting with the original image
     # Start building the command to run to create the animation
-    COMMAND="magick $FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
+    COMMAND="magick $DIRECTORY/$FILE -background \"$BACKGROUND_COLOR\" -delay '${DELAY_IN_MSEC}x1000' -dispose Background"
     FRAMES=1
 
     # Explosions are negative intensity, implosions are positive intensity
@@ -219,7 +219,7 @@ create_imploded_file()
     NEW_FILE="${FILE_NAME}_imploding.gif"
     echo "Creating new file: $NEW_FILE"
 
-    COMMAND="$COMMAND -loop 0 $NEW_FILE"
+    COMMAND="$COMMAND -loop 0 $DIRECTORY/$NEW_FILE"
     eval "$COMMAND"
 
     echo "Animated image file creation complete!"
