@@ -13,6 +13,7 @@ Here are some examples:
 - Want to take an image like this upside-down face 🙃 and rotate it so its right-side up?  Try [rotate.sh](scripts/rotate.sh)!
 - Want to take an image like this dizzy face 😵 and make it spin in a circle?  Try [spin.sh](scripts/spin.sh)!
 - Want to convert your image file from a `.jpg` to a `.png`?  Try [convert.sh](scripts/convert.sh)!
+- And more! 🌶️
 
 If there is something missing here that you think could be used, feel free to add an issue or a pull request!
 
