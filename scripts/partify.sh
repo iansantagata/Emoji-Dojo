@@ -6,6 +6,11 @@
 # Example Usages:
 #
 # ./partify.sh --help
+# ./partify.sh Image.png
+# ./partify.sh -d 20 Image.png
+# ./partify.sh -d 30 -f 50 Image.png
+# ./partify.sh -b '#FFFFFF' Image.png
+# ./partify.sh -c '#FFFFFF' -f 20 Image.png
 
 set -e
 SCRIPT_NAME=$0
@@ -30,7 +35,7 @@ display_help()
     echo "                                                        If not used, the default is 50 milliseconds"
     echo "  -f, --fuzz VALUE, --fuzz=VALUE             (OPTIONAL) A percent VALUE to enable a fuzzy match against the target color;"
     echo "                                                        VALUE should be between 0 and 100 (inclusive) percent;"
-    echo "                                                        If a VALUE of 0 is used, only exactly the same colors will match;"
+    echo "                                                        If a VALUE of 0 is used, only exactly the same color will match;"
     echo "                                                        If not used, the default is 10 (percent)"
     echo "  -h, --help                                 (OPTIONAL) Display this help and exit"
 }
