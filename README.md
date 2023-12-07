@@ -1,5 +1,5 @@
 <!-- Badges -->
-[![License](https://img.shields.io/github/license/iansantagata/jamms?label=License&color=yellow)](LICENSE)
+[![License](https://img.shields.io/github/license/iansantagata/emoji-dojo?label=License&color=yellow)](LICENSE)
 
 # Emoji Dojo
 
